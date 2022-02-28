@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
 
 namespace InputSystemManager
@@ -14,6 +13,14 @@ namespace InputSystemManager
     public class DemoInputManager
     {
         private DemoInputActions demoInputActions;
+
+        public bool Up => 0 < GetMoveButton().y;
+
+        public bool Down => GetMoveButton().y < 0;
+
+        public bool Right => 0 < GetMoveButton().x;
+
+        public bool Left => GetMoveButton().x < 0;
 
         //ボタンに登録...押されたとき、押されて数秒の時、離されたとき
         public void RegistFire(UnityAction action) => demoInputActions.Player.Fire.performed += context => action();
@@ -37,24 +44,12 @@ namespace InputSystemManager
             Load();
         }
 
-        // Update is called once per frame
-        private void Update()
-        {
-            //十字キー使用例
-            var direction = GetMoveButton();
 
-            //長押し使用例
-            if (IsShotHold()) Debug.Log("Shot");
-        }
-
-        private void Load()
+        public void Load()
         {
             //DemoのinputAction
             demoInputActions = new DemoInputActions();
             demoInputActions.Enable();
-
-            //Fireボタン登録例
-            RegistFire(() => Debug.Log("Fire"));
         }
     }
 }

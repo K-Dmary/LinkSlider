@@ -2,7 +2,8 @@
     "name": "Demo",
     "rootNamespace": "",
     "references": [
-        "InpuSystemManager"
+        "UniRx",
+        "InputSystemManager"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
