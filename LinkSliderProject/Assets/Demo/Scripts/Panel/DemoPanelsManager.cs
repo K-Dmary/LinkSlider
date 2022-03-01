@@ -13,6 +13,7 @@ namespace Demo
     {
         [SerializeField] private GameObject paretnt;
         [SerializeField] private PanelInfoScriptableObject panelInfo;
+        [SerializeField] private GridDataSctiptableObject gridData;
 
         [Space]
         [SerializeField] private List<Panel> panels;
@@ -38,15 +39,19 @@ namespace Demo
 
         public void InstantiatePanel()
         {
+            if (!gridData.IsExist)
+            {
+                return;
+            }
+
+            gridData.Generate();
             GameObject instance = Instantiate(panelInfo.panelPredfab);
 
             float size = panelInfo.Size * 0.1f;
             Vector3 scale = new Vector3(size, 1, size);
             instance.transform.localScale = scale;
-
             instance.transform.parent = paretnt.transform;
-
-            panels.Add(new Panel(instance));
+            panels.Add(new Panel(instance, gridData));
         }
 
         public void DeleteEndPanel()
@@ -66,44 +71,78 @@ namespace Demo
         public class Panel
         {
             [SerializeField] GameObject panel;
-            private Vector2 coordinates;
-            private float Speed;
+            [SerializeField, HideInInspector]
+            private Vector2ReactiveProperty indexPositionRp;
 
-            public Panel(GameObject obj)
+            [SerializeField, HideInInspector] 
+            private GridDataSctiptableObject gridData;
+            
+            private Vector2 IndexPosition { get => indexPositionRp.Value; set => indexPositionRp.Value = value; }
+            public GameObject Obj { get => panel; }
+            private float IndexPositionX
+            {
+                get => IndexPosition.x;
+                set
+                {
+                    if(value < 0 || gridData.Width <= value)
+                    {
+                        return;
+                    }
+                    Vector2 index = IndexPosition;
+                    index.x = value;
+                    IndexPosition = index;
+                }
+            }
+            private float IndexPositionY
+            {
+                get => IndexPosition.y;
+                set
+                {
+                    if (value < 0 || gridData.Height <= value)
+                    {
+                        return;
+                    }
+                    Vector2 index = IndexPosition;
+                    index.y = value;
+                    IndexPosition = index;
+                }
+            }
+
+            public Panel(GameObject obj, GridDataSctiptableObject data)
             {
                 panel = obj;
-                Speed = 1;
+                gridData = data;
+
+                indexPositionRp = new Vector2ReactiveProperty();
+                indexPositionRp.Subscribe(_ =>
+                {
+                    panel.transform.localPosition = gridData.GetMassPos(IndexPosition);
+                }).AddTo(panel);
             }
 
             public void Up()
             {
-                coordinates.y += Speed * Time.deltaTime;
-                Debug.Log("Up : " + coordinates);
-                SetPanelPosition();
+                IndexPositionY += 1;
+                Debug.Log("Up : " + IndexPosition);
             }
 
             public void Down()
             {
-                coordinates.y -= Speed * Time.deltaTime;
-                Debug.Log("Down : " + coordinates);
-                SetPanelPosition();
+                IndexPositionY -= 1;
+                Debug.Log("Down : " + IndexPosition);
             }
 
             public void Right()
             {
-                coordinates.x += Speed * Time.deltaTime;
-                Debug.Log("Right : " + coordinates);
-                SetPanelPosition();
+                IndexPositionX += 1;
+                Debug.Log("Right : " + IndexPosition);
             }
 
             public void Left()
             {
-                coordinates.x -= Speed * Time.deltaTime;
-                Debug.Log("Left : " + coordinates);
-                SetPanelPosition();
+                IndexPositionX -= 1;
+                Debug.Log("Left : " + IndexPosition);
             }
-
-            private void SetPanelPosition() => panel.transform.localPosition = new Vector3(coordinates.x, 0, coordinates.y);
 
             public void Dispose() => DestroyImmediate(panel);
         }

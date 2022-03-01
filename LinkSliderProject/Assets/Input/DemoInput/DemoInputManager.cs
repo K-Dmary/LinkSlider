@@ -25,6 +25,11 @@ namespace InputSystemManager
         //ƒ{ƒ^ƒ“‚É“o˜^...‰Ÿ‚³‚ê‚½‚Æ‚«A‰Ÿ‚³‚ê‚Ä”•b‚ÌŽžA—£‚³‚ê‚½‚Æ‚«
         public void RegistFire(UnityAction action) => demoInputActions.Player.Fire.performed += context => action();
 
+        public void RegistUp(UnityAction action) => demoInputActions.Player.Up.performed += context => action();
+        public void RegistDown(UnityAction action) => demoInputActions.Player.Down.performed += context => action();
+        public void RegistRight(UnityAction action) => demoInputActions.Player.Right.performed += context => action();
+        public void RegistLeft(UnityAction action) => demoInputActions.Player.Left.performed += context => action();
+
         //ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚©‚ÌŽæ“¾
         public bool IsShotHold() => demoInputActions.Player.ShotHold.ReadValue<float>() > 0;
 

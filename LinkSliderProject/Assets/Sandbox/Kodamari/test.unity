@@ -213,7 +213,6 @@ GameObject:
   - component: {fileID: 43654394}
   - component: {fileID: 43654393}
   - component: {fileID: 43654395}
-  - component: {fileID: 43654396}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -262,19 +261,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obj: {fileID: 1753978178}
   spawnPoint: {x: 1.37, y: 2.7, z: 0}
---- !u!114 &43654396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 43654392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65b39025f516ef8418f3ff8088e951ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 604493319}
 --- !u!1 &604493317
 GameObject:
   m_ObjectHideFlags: 0

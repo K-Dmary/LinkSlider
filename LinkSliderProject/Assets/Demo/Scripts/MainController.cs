@@ -10,6 +10,7 @@ namespace Demo
         private DemoInputManager input;
 
         [SerializeField] DemoPanelsManager panelsManager;
+        [SerializeField] DemoMapManager mapManager;
 
         private void LoadInput()
         {
@@ -22,6 +23,12 @@ namespace Demo
 
         private void LoadMap()
         {
+            mapManager.LoadStart();
+            input.RegistUp(() => panelsManager.TargetPanel?.Up());
+            input.RegistDown(() => panelsManager.TargetPanel?.Down());
+            input.RegistRight(() => panelsManager.TargetPanel?.Right());
+            input.RegistLeft(() => panelsManager.TargetPanel?.Left());
+
             Debug.Log("Load Map");
         }
 
@@ -33,10 +40,10 @@ namespace Demo
 
         private void PanelController()
         {
-            if (input.Up) panelsManager.TargetPanel?.Up();
-            if (input.Down) panelsManager.TargetPanel?.Down();
-            if (input.Right) panelsManager.TargetPanel?.Right();
-            if (input.Left) panelsManager.TargetPanel?.Left();
+            //if (input.Up) panelsManager.TargetPanel?.Up();
+            //if (input.Down) panelsManager.TargetPanel?.Down();
+            //if (input.Right) panelsManager.TargetPanel?.Right();
+            //if (input.Left) panelsManager.TargetPanel?.Left();
         }
 
         // Update is called once per frame

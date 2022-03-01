@@ -5,11 +5,11 @@ using UnityEngine;
 namespace Demo {
     public class DemoMapManager : MonoBehaviour
     {
-        [SerializeField] private DemoPanelsManager panels; 
+        [SerializeField] private GridDataSctiptableObject gridData; 
         // Start is called before the first frame update
-        void LoadStart()
+        public void LoadStart()
         {
-
+            gridData.Generate();
         }
     }
 }
