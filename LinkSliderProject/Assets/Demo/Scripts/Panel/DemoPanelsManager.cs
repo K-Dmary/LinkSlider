@@ -25,8 +25,8 @@ namespace Demo
         [Space]
         [SerializeField] private List<Panel> panels;
 
-
-        public void InstantiatePanel()
+        // ÉpÉlÉãÇÃê∂ê¨
+        public void GeneratePanel()
         {
             if (!gridData.IsExist)
             {
@@ -162,9 +162,9 @@ namespace Demo
 
             map = target as DemoPanelsManager;
 
-            if (GUILayout.Button("CreatePanel"))
+            if (GUILayout.Button("GeneratePanel"))
             {
-                map.InstantiatePanel();
+                map.GeneratePanel();
             }
 
             if (GUILayout.Button("DeletePanel"))
