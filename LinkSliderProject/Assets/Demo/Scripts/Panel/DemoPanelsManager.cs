@@ -9,32 +9,21 @@ using UnityEditor;
 
 namespace Demo
 {
+    /// <summary>
+    /// パネル全体を管理するクラス
+    /// </summary>
     public class DemoPanelsManager : MonoBehaviour
     {
+        // パネルをまとめておく親オブジェクト
         [SerializeField] private GameObject paretnt;
+        // パネルのサイズなどの情報データ
         [SerializeField] private PanelInfoScriptableObject panelInfo;
+        // グリッドデータ
         [SerializeField] private GridDataSctiptableObject gridData;
 
+        // パネルリスト
         [Space]
         [SerializeField] private List<Panel> panels;
-        
-        private IntReactiveProperty targetPanelNumRp = new IntReactiveProperty(0);
-        
-        public int TargetPanelNum { get => targetPanelNumRp.Value; set => targetPanelNumRp.Value = value; }
-
-        public bool IsRangeOfPanels(int value) => panels.Count != 0 && 0 <= value && value < panels.Count;
-        public Panel TargetPanel
-        {
-            get
-            {
-               if(!IsRangeOfPanels(TargetPanelNum))
-                {
-                    return null;
-                }
-
-                return panels[TargetPanelNum];
-            }
-        }
 
 
         public void InstantiatePanel()
@@ -54,9 +43,12 @@ namespace Demo
             panels.Add(new Panel(instance, gridData));
         }
 
+        /// <summary>
+        /// パネルリストの最後の要素を削除する
+        /// </summary>
         public void DeleteEndPanel()
         {
-            if(!IsRangeOfPanels(panels.Count - 1))
+            if(panels.Count == 0)
             {
                 return;
             }
@@ -66,48 +58,45 @@ namespace Demo
             panels.Remove(endPanel);
         }
 
-
+        /// <summary>
+        /// パネル単体の情報クラス
+        /// </summary>
         [System.Serializable]
         public class Panel
         {
+            // 表示されるパネル
             [SerializeField] GameObject panel;
+
+            // index座標のリアクティブプロパティ
             [SerializeField, HideInInspector]
             private Vector2ReactiveProperty indexPositionRp;
 
+            // gridData
             [SerializeField, HideInInspector] 
             private GridDataSctiptableObject gridData;
-            
-            private Vector2 IndexPosition { get => indexPositionRp.Value; set => indexPositionRp.Value = value; }
+
+            // 読み取り専用の表示されるパネル
             public GameObject Obj { get => panel; }
-            private float IndexPositionX
+
+            // index座標のプロパティ
+            private Vector2Int IndexPosition
             {
-                get => IndexPosition.x;
+                get => Vector2Int.FloorToInt(indexPositionRp.Value);
                 set
                 {
-                    if(value < 0 || gridData.Width <= value)
-                    {
-                        return;
-                    }
-                    Vector2 index = IndexPosition;
-                    index.x = value;
-                    IndexPosition = index;
-                }
-            }
-            private float IndexPositionY
-            {
-                get => IndexPosition.y;
-                set
-                {
-                    if (value < 0 || gridData.Height <= value)
-                    {
-                        return;
-                    }
-                    Vector2 index = IndexPosition;
-                    index.y = value;
-                    IndexPosition = index;
+                    Vector2 index = new Vector2(value.x, value.x);
+
+                    if (index.x < 0) index.x = 0;
+                    if (gridData.Width <= index.x) index.x = gridData.Width- 1;
+
+                    if (index.y < 0) index.y = 0;
+                    if (gridData.Height <= index.y) index.y = gridData.Height - 1;
+
+                    indexPositionRp.Value = index;
                 }
             }
 
+            //コンストラクタ
             public Panel(GameObject obj, GridDataSctiptableObject data)
             {
                 panel = obj;
@@ -120,30 +109,43 @@ namespace Demo
                 }).AddTo(panel);
             }
 
+            //上に移動
             public void Up()
             {
-                IndexPositionY += 1;
+                Vector2Int nextIndex = IndexPosition;
+                nextIndex.y++;
+                IndexPosition = nextIndex;
                 Debug.Log("Up : " + IndexPosition);
             }
 
+            //下に移動
             public void Down()
             {
-                IndexPositionY -= 1;
+                Vector2Int nextIndex = IndexPosition;
+                nextIndex.y--;
+                IndexPosition = nextIndex;
                 Debug.Log("Down : " + IndexPosition);
             }
 
+            //右に移動
             public void Right()
             {
-                IndexPositionX += 1;
+                Vector2Int nextIndex = IndexPosition;
+                nextIndex.x++;
+                IndexPosition = nextIndex;
                 Debug.Log("Right : " + IndexPosition);
             }
 
+            //左に移動
             public void Left()
             {
-                IndexPositionX -= 1;
+                Vector2Int nextIndex = IndexPosition;
+                nextIndex.x--;
+                IndexPosition = nextIndex;
                 Debug.Log("Left : " + IndexPosition);
             }
 
+            //メモリの開放
             public void Dispose() => DestroyImmediate(panel);
         }
     }

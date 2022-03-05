@@ -7,7 +7,7 @@ namespace Demo
     public interface IGridData
     {
         /// <summary>
-        /// グリッドのマス数（横）
+        /// グリッドのマス数（横，縦）
         /// </summary>
         public int Width { get; }
 
@@ -31,8 +31,7 @@ namespace Demo
     [CreateAssetMenu(menuName = "Scriptables/Create GridData")]
     public class GridDataSctiptableObject : ScriptableObject, IGridData
     {
-        [SerializeField] private int width;
-        [SerializeField] private int height;
+        [SerializeField] private Vector2Int size;
 
         //１マスのサイズ
         [SerializeField] private float massSize;
@@ -40,8 +39,8 @@ namespace Demo
         [SerializeField, HideInInspector]
         private GridMass[,] masses;
 
-        public int Width { get => width; }
-        public int Height { get => height; }
+        public int Width { get => size.x; }
+        public int Height { get => size.y; }
 
         public bool IsExist => Width + Height != 0;
 
