@@ -306,6 +306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelsManager: {fileID: 761040041}
   mapManager: {fileID: 775731911}
+  characterIndex: {x: 0, y: 0}
 --- !u!4 &1487288509
 Transform:
   m_ObjectHideFlags: 0

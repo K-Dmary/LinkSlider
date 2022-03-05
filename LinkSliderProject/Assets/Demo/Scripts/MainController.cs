@@ -12,6 +12,9 @@ namespace Demo
         [SerializeField] DemoPanelsManager panelsManager;
         [SerializeField] DemoMapManager mapManager;
 
+        //‰¼’u‚«
+        [SerializeField] Vector2Int characterIndex;
+
         private void LoadInput()
         {
             input = new DemoInputManager();
@@ -24,10 +27,12 @@ namespace Demo
         private void LoadMap()
         {
             mapManager.LoadStart();
-            input.RegistUp(() => panelsManager.TargetPanel?.Up());
-            input.RegistDown(() => panelsManager.TargetPanel?.Down());
-            input.RegistRight(() => panelsManager.TargetPanel?.Right());
-            input.RegistLeft(() => panelsManager.TargetPanel?.Left());
+            panelsManager.GeneratePanel();
+            panelsManager.SetTargetPanel(characterIndex);
+            input.RegistUp(() => panelsManager.Move(MoveType.Up));
+            input.RegistDown(() => panelsManager.Move(MoveType.Down));
+            input.RegistRight(() => panelsManager.Move(MoveType.Right));
+            input.RegistLeft(() => panelsManager.Move(MoveType.Left));
 
             Debug.Log("Load Map");
         }
