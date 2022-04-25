@@ -1,14 +1,12 @@
 {
-    "name": "Demo",
+    "name": "Demo.Editor",
     "rootNamespace": "",
     "references": [
-        "Unity.ResourceManager",
-        "Unity.Addressables",
-        "InputSystemManager",
-        "UniRx",
-        "UniTask"
+        "GUID:cd5214d052a55a948be7f4e93f1b434d"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
