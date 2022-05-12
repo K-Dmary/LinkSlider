@@ -2,11 +2,11 @@
     "name": "Demo",
     "rootNamespace": "",
     "references": [
-        "Unity.ResourceManager",
         "Unity.Addressables",
         "InputSystemManager",
         "UniRx",
-        "UniTask"
+        "UniTask",
+        "Unity.ResourceManager"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,18 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace Demo
 {
     public class GameSceneManager : MonoBehaviour
     {
-        [Header("Stage")]
-        [SerializeField] private AssetReference stageDataAddress;
-        void Start()
+        [SerializeField] string stageName = "Demo";
+        async void Start()
         {
-            StageManager.Create();
-            StageManager.Instance.Load(stageDataAddress);
+            var datamanager = DataManager.Create();
+            await datamanager.Load(stageName);
         }
 
         void Update()
