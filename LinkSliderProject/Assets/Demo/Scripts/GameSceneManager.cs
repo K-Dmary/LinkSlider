@@ -7,10 +7,11 @@ namespace Demo
     public class GameSceneManager : MonoBehaviour
     {
         [SerializeField] string stageName = "Demo";
+        [SerializeField] StageController stageController;
         async void Start()
         {
-            var datamanager = DataManager.Create();
-            await datamanager.Load(stageName);
+            await DataManager.LoadStageData(stageName);
+            stageController.Load();
         }
 
         void Update()

@@ -7,18 +7,21 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Demo
 { 
+    /// <summary>
+    /// データの読み込み
+    /// </summary>
     public class DataManager
     {
-        public static DataManager instance; 
+        private static StageData stageData;
 
-        public static DataManager Create()
-        {
-            instance = new DataManager();
-            return instance;
-        }
+        internal static StageData Stage => stageData;
         
-        private StageData stageData;
-        public async UniTask Load(string stagename)
+        /// <summary>
+        /// 読み込み
+        /// </summary>
+        /// <param name="stagename">データ名</param>
+        /// <returns>UniTask</returns>
+        public static async UniTask LoadStageData(string stagename)
         {
             var handle = Addressables.LoadAssetAsync<StageData>(stagename);
             await handle.Task;
