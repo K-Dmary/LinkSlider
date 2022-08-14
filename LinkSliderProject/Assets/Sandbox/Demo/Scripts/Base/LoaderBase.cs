@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
+/// <summary>
+/// Addressablesロード基底クラス
+/// </summary>
+/// <typeparam name="T">T</typeparam>
 public class LoaderBase <T>
 {
     public Dictionary<string, T> datas;
