@@ -17,8 +17,32 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 4eb0f0d258f332949a56d9c727e504c7
   m_SerializeEntries:
-  - m_GUID: 16bf96502da67754abe52121bc3d1d76
-    m_Address: Demo
+  - m_GUID: 4d8ce2f97dcedd44d9f2bc97cf0aa2f7
+    m_Address: House
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6fb3542daef0fec4eb90c679165898d7
+    m_Address: Error
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c27f121a69947bf4cb923af385f49c00
+    m_Address: Cube
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 762aac16e1590544d816008c9a76fa0c
+    m_Address: Test
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fa34d639167bb0b479391aea6dba4d31
+    m_Address: MapData_Demo
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1f6683ddebb74214f930b4e68f77ef77
+    m_Address: GridData_Demo
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 19c060ca13f29c7449c0ca8ee318f664
+    m_Address: TileData_Demo
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
